@@ -46,4 +46,4 @@ def save_to_csv(df: pd.DataFrame, filename: str):
 
 if __name__ == "__main__":
     df_raw = fetch_traffic_flow()
-    save_to_csv(df_raw, "raw_traffic_data.csv")
+    save_to_csv(df_raw, "csv_files/raw_traffic_data.csv")
