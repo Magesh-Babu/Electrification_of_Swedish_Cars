@@ -28,4 +28,4 @@ def clean_data(filepath: str, output_path: str):
     df.to_csv(output_path, index=False)
 
 if __name__ == "__main__":
-    clean_data("csv_files/raw_traffic_data.csv", "csv_files/cleaned_traffic_data.csv")
+    clean_data("csv_files/raw_traffic_data.csv", "csv_files/cleaned_traffic_data_aug_3.csv")
