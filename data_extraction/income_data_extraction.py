@@ -48,42 +48,33 @@ def fetch_income_data():
 
     # Extract dimensions
     regions = data['dimension']['Region']['category']['label']
-    fuels = data['dimension']['Drivmedel']['category']['label']
-    months = data['dimension']['Tid']['category']['label']
+    variable = data['dimension']['Bakgrund']['category']['label']
+    year = data['dimension']['Tid']['category']['label']
 
-    fuel_label = list(fuels.values())[0]
+    variable_codes = list(variable.keys())
     region_codes = list(regions.keys())
-    month_codes = list(months.keys())
+    year_codes = list(year.keys())
     values = data['value']
 
     records = []
     index = 0
     for region_code in region_codes:
-        for month_code in month_codes:
-            records.append({
-                "Region": regions[region_code],
-                "FuelType": fuel_label,
-                "YearMonth": months[month_code],
-                "NumberOfRegistration": values[index]
-            })
-            index += 1
+        for variable_code in variable_codes:
+            for year_code in year_codes:    
+                records.append({
+                    "Region": regions[region_code],
+                    "AgeVariable": variable_code,
+                    "Year": year[year_code],
+                    "AvgDisposibleIncome": values[index]
+                })
+                index += 1
 
     return pd.DataFrame(records)
 
-# --- Step 3: Loop through fuel codes and collect data ---
-all_dataframes = []
-
-for code in fuel_codes:
-    print(f"Fetching for fuel code: {code}")
-    df_part = fetch_data_for_fuel(code)
-    if not df_part.empty:
-        all_dataframes.append(df_part)
-
-# --- Step 4: Combine and save ---
-final_df = pd.concat(all_dataframes, ignore_index=True)
-final_df.to_csv("vehicle_registration_by_fuel.csv", index=False)
-print("✅ All data saved to vehicle_registration_by_fuel.csv")
+# --- Step 3: Fetch and save data ---
+income_df = fetch_income_data()
+income_df.to_csv("income_statistics.csv", index=False)
+print("✅ All income data saved to income_statistics.csv")
 
 # Optional: Show summary
-print(final_df['FuelType'].value_counts())
-print(final_df.head())
+print(income_df.head())
