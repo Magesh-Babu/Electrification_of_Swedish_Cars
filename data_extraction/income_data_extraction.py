@@ -63,7 +63,7 @@ def fetch_income_data():
             for year_code in year_codes:    
                 records.append({
                     "Region": regions[region_code],
-                    "AgeVariable": variable_code,
+                    "AgeVariable": variable[variable_code],
                     "Year": year[year_code],
                     "AvgDisposibleIncome": values[index]
                 })
@@ -73,7 +73,7 @@ def fetch_income_data():
 
 # --- Step 3: Fetch and save data ---
 income_df = fetch_income_data()
-income_df.to_csv("income_statistics.csv", index=False)
+income_df.to_csv("csv_files/income_statistics.csv", index=False)
 print("✅ All income data saved to income_statistics.csv")
 
 # Optional: Show summary

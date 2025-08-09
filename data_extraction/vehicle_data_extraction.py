@@ -66,7 +66,7 @@ for code in fuel_codes:
 
 # --- Step 4: Combine and save ---
 final_df = pd.concat(all_dataframes, ignore_index=True)
-final_df.to_csv("vehicle_registration_by_fuel.csv", index=False)
+final_df.to_csv("csv_files/vehicle_registration_by_fuel.csv", index=False)
 print("✅ All data saved to vehicle_registration_by_fuel.csv")
 
 # Optional: Show summary
